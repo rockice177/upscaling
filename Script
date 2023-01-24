@@ -1,0 +1,16 @@
+from multiprocessing import Pool
+import os
+
+def upscale_image(file):
+    input_path = os.path.join(input_folder, file)
+    output_path = os.path.join(output_folder, file)
+    model.upscale(input_path, output_path)
+
+input_folder = 'path/to/input/folder'
+output_folder = 'path/to/output/folder'
+
+model = esrgan.RRDB_ESRGAN(model='RRDB_ESRGAN_x4.pth')
+
+with Pool(processes=4) as pool:
+    files = [file for file in os.listdir(input_folder) if file.endswith('.jpg')]
+    pool.map(upscale_image, files)
